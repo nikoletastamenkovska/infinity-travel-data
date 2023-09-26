@@ -32,9 +32,7 @@ const allowedOrigins = ['http://localhost:3000'];
 server.use(
     cors({
         origin: function (origin, callback) {
-            if (process.env.NODE_ENV !== 'production') {
-                callback(null, true);
-            } else if (allowedOrigins.indexOf(origin) !== -1) {
+            if (origin === 'http://localhost:3000') {
                 callback(null, true);
             } else {
                 callback(new Error('Not allowed by CORS'));
@@ -42,6 +40,7 @@ server.use(
         },
     })
 );
+
 
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
